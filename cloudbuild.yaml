@@ -1,0 +1,21 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/boda-328111/$_PROJECT:$COMMIT_SHA', '.']
+  # Push the image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/boda-328111/$_PROJECT:$COMMIT_SHA']
+  # Deploy image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - '$_PROJECT'
+      - '--image'
+      - 'gcr.io/boda-328111/$_PROJECT:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+images:
+  - gcr.io/boda-328111/$_PROJECT
