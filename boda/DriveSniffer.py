@@ -60,11 +60,13 @@ class DriveSniffer:
             return mime_type
 
     def dict2matrix(self, ds):
-        matrix = [list(ds[0].keys())]
+        headers = ['id', 'Invitado', 'Acompanante', 'RSVP', 'Link']
+        matrix = [headers]
         for x, d in enumerate(ds):
             matrix.append([])
-            for r in d:
-                matrix[x+1].append(d[r])
+            for h in headers:
+                val = d[h] if h in d else ""
+                matrix[x+1].append(val)
         return matrix
 
     def copy_file(self, file_id, new_folder, new_title):
