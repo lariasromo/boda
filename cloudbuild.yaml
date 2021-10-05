@@ -10,7 +10,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - '$_PROJECT'
+      - 'boda-328111'
       - '--image'
       - 'us-west1-docker.pkg.dev/boda-328111/boda/boda:$COMMIT_SHA'
       - '--region'
