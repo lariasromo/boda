@@ -1,15 +1,6 @@
 import settings
 from boda.DriveSniffer import DriveSniffer
 
-
-def dict2matrix(ds):
-    matrix = [list(ds[0].keys())]
-    for x, d in enumerate(ds):
-        matrix.append([])
-        for r in d:
-            matrix[x+1].append(d[r])
-    return matrix
-
 gclient = DriveSniffer(settings.PPT_TARGET_FOLDER, "creds.json")
 invitados = gclient.download_file(settings.TEST_EXCEL_DRIVE_FILEID)
 
@@ -27,6 +18,6 @@ for invitado in invitados:
     pub = gclient.publish(new_file)
     link = f"https://docs.google.com/presentation/d/{new_file}/present?start=true&loop=false&delayms=5000"
     invitado["Link"] = link
-    gclient.write_file(settings.TEST_EXCEL_DRIVE_FILEID, dict2matrix(invitados))
+    gclient.write_file(settings.TEST_EXCEL_DRIVE_FILEID, gclient.dict2matrix(invitados))
 
 # https://docs.google.com/presentation/d/1OiYkAboDcFyGPobFooHZRFyGpzjSZevUrGoxfHjotc4/present?start=true&loop=false&delayms=5000

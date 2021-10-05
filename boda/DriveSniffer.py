@@ -59,6 +59,14 @@ class DriveSniffer:
         else:
             return mime_type
 
+    def dict2matrix(self, ds):
+        matrix = [list(ds[0].keys())]
+        for x, d in enumerate(ds):
+            matrix.append([])
+            for r in d:
+                matrix[x+1].append(d[r])
+        return matrix
+
     def copy_file(self, file_id, new_folder, new_title):
         try:
             return self.drive_service.files().copy(fileId=file_id, body={'name': new_title}).execute()
